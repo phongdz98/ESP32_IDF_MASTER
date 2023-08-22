@@ -13,7 +13,7 @@
 #include "freertos/FreeRTOS.h"
 
 // Wifi application settings
-#define WIFI_AP_SSID "ESP32_AP"         // AP Name
+#define WIFI_AP_SSID "ESP32_AP"          // AP Name
 #define WIFI_AP_PASSWORD "password"      // Ap Password
 #define WIFI_AP_CHANNEL 1                // AP Channel
 #define WIFI_AP_SSID_HIDDEN 0            // AP visivility

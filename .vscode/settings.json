@@ -1,0 +1,8 @@
+{
+  "idf.adapterTargetName": "esp32",
+  "files.associations": {
+    "param.h": "c",
+    "esp_http_server.h": "c"
+  },
+  "idf.portWin": "COM7"
+}
