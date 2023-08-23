@@ -29,10 +29,14 @@ h4 {
   color: #1d3557;
 }
 
+#temperature_reading,
+#humidity_reading,
 #latest_firmware,
 #latest_firmware_label {
   display: inline;
 }
+#temperature_reading,
+#humidity_reading,
 #latest_firmware {
   color: #1d3557;
 }

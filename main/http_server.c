@@ -13,6 +13,7 @@
 #include "lwip/ip4_addr.h"
 #include "sys/param.h"
 
+#include "dht11.h"
 #include "http_server.h"
 #include "tasks_common.h"
 #include "wifi_app.h"
@@ -300,6 +301,31 @@ esp_err_t http_server_OTA_status_handler(httpd_req_t *req)
 }
 
 /**
+ * DHT sensor reading JSON handler responds with DHT11 sensor data
+ * @param req HTTP request for which th uri needs to be handled
+ * @return ESP_OK
+ */
+static esp_err_t http_server_get_dht_sensor_json_handler(httpd_req_t *req)
+{
+    ESP_LOGI(TAG, "/dhtSensor.json requested");
+    char dhtSensorJON[100];
+
+    // printf("json response: %s", dhtSensorJON);
+    if (dht11_cur_data.status == DHT11_OK)
+    {
+        sprintf(dhtSensorJON, "{\"temp\":%d, \"humidity\":%d}", dht11_cur_data.temperature, dht11_cur_data.humidity);
+        httpd_resp_set_type(req, "application/json");
+        httpd_resp_send(req, dhtSensorJON, strlen(dhtSensorJON));
+        ESP_LOGI(TAG, "/dhtSensor.json read data successfully");
+    }
+    else
+    {
+        ESP_LOGI(TAG, "/dhtSensor.json error  dht status %d", dht11_cur_data.status);
+    }
+
+    return ESP_OK;
+}
+/**
  * Sets up the default httpd server configuration.
  * @return http server instance handle if successful, NULL otherwise.
  */
@@ -394,6 +420,14 @@ static httpd_handle_t http_server_configure(void)
             .handler = http_server_OTA_status_handler,
             .user_ctx = NULL};
         httpd_register_uri_handler(http_server_handle, &OTA_status);
+
+        // Register dhtSensor.json handler
+        httpd_uri_t dht_sensor_json = {
+            .uri = "/dhtSensor.json",
+            .method = HTTP_GET,
+            .handler = http_server_get_dht_sensor_json_handler,
+            .user_ctx = NULL};
+        httpd_register_uri_handler(http_server_handle, &dht_sensor_json);
 
         return http_server_handle;
     }
