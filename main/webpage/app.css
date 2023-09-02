@@ -29,11 +29,35 @@ h4 {
   color: #1d3557;
 }
 
+.gr {
+  color: green;
+}
+.rd {
+  color: red;
+}
+#connected_ap,
+#wifi_connect_ip,
+#wifi_connect_netmask,
+#wifi_connect_gateway {
+  color: #1d3557;
+}
+
 #temperature_reading,
 #humidity_reading,
 #latest_firmware,
-#latest_firmware_label {
+#latest_firmware_label,
+#connected_ap_label,
+#connected_ap,
+#ip_adress_label,
+#netmask_label,
+#gateway_label,
+#wifi_connect_ip,
+#wifi_connect_netmask,
+#wifi_connect_gateway {
   display: inline;
+}
+#disconnect_wifi {
+  display: none;
 }
 #temperature_reading,
 #humidity_reading,
